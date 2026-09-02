@@ -57,7 +57,7 @@ def main():
 
             if exit_to_menu:
                 continue
-            
+
             while True:
                 try:
                     ym_raw = input("Enter Custom Young's Modulus (GPa): ").strip()
@@ -75,3 +75,13 @@ def main():
 
             if exit_to_menu:
                 continue
+            
+    #Display reference material properties
+        print(f"\n--- Selected Material Properties ---")
+        print(f"Material: {selected_material}")
+        print(f"Yield Strength: {yield_strength / 1_000_000:.2f} MPa")
+        print(f"Typical Young's Modulus: {youngs_modulus / 1_000_000_000:.2f} GPa")
+        print("------------------------------------")
+
+        abort_calculation = False
+         
