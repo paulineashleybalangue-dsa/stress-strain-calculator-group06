@@ -153,3 +153,6 @@ def main():
                 "factor_of_safety": factor_of_safety,
                 "safety_status": safety_status
             }
+
+            # TODO: Add record to history list
+            calculation_history.append(calculation_record)
