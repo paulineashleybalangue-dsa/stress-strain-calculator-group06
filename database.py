@@ -15,3 +15,14 @@ def main():
         print("4. Custom Material")
         print("5. Exit Program")
         print("Type 'q' or 'quit' at any prompt to exit back to menu")
+
+        choice = input("Select a material option (1-5): ").strip()
+
+        if choice.lower() in ["5", "q", "quit"]:
+            print("\nExiting program. Goodbye!")
+            break
+
+        if choice not in ["1", "2", "3", "4"]:
+            print("[Invalid Choice] Please select an option between 1 and 5.")
+            continue
+        
