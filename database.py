@@ -25,4 +25,15 @@ def main():
         if choice not in ["1", "2", "3", "4"]:
             print("[Invalid Choice] Please select an option between 1 and 5.")
             continue
-        
+
+# Material Property Assignment
+        if choice in materials:
+            selected_material = materials[choice]["name"]
+            yield_strength = materials[choice]["yield_strength"]
+            youngs_modulus = materials[choice]["youngs_modulus"]
+        else:
+            selected_material = input("Enter custom material name: ").strip()
+            if  selected_material.lower() in ["q", "quit"]:
+                continue
+            if not selected_material:
+                selected_material = "Custom Material"
