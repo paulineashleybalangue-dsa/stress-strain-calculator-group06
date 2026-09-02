@@ -37,3 +37,23 @@ def main():
                 continue
             if not selected_material:
                 selected_material = "Custom Material"
+
+   # Validate Custom Material Inputs
+            exit_to_menu = False
+            while True:
+                try:
+                    ys_raw = input("Enter Custom Yield Strength (MPa): ").strip()
+                    if ys_raw.lower() in ["q", "quit"]:
+                        exit_to_menu = True
+                        break
+                    ys_input = float(ys_raw)
+                    if ys_input <= 0:
+                        print("Yield strength must be positive!")
+                        continue
+                    yield_strength = ys_input * 1_000_000  # Convert MPa to Pa
+                    break
+                except ValueError:
+                    print("Please enter a valid number for Yield Strength!")
+
+            if exit_to_menu:
+                continue
