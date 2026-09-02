@@ -89,3 +89,12 @@ def main():
 
             if exit_to_menu:
                 continue
+        
+        try:
+            # TODO: Get input values (force, area, original_length, change_in_length)
+            force = float(input(f"Enter applied force ({units[0]}): "))
+            area = float(input(f"Enter cross-sectional area ({units[1]}): ")) 
+            original_length = float( input(f"Enter original length ({units[2]}): ") ) 
+            change_in_length = float( input(f"Enter change in length ({units[2]}): ") )
+
+            
