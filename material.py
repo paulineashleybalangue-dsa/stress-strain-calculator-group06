@@ -136,3 +136,20 @@ def main():
                     safety_status = f"SAFE - Factor of safety: {factor_of_safety:.2f}"
             else:
                 safety_status = f"CRITICAL FAILURE RISK - Stress exceeds Yield Strength! (FOS: {factor_of_safety:.2f})"
+
+            # TODO: Create calculation record dictionary with all data
+            calculation_record = {
+                "test_number": len(calculation_history) + 1,
+                "material": selected_material,
+                "force": force,
+                "area": area,
+                "original_length": original_length,
+                "change_in_length": change_in_length,
+                "stress": stress,
+                "strain": strain,
+                "stress_mpa": stress_mpa,
+                "yield_strength": yield_strength,
+                "youngs_modulus": youngs_modulus,
+                "factor_of_safety": factor_of_safety,
+                "safety_status": safety_status
+            }
