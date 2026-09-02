@@ -159,3 +159,25 @@ def main():
 
             # TODO: Add material to unique materials set
             unique_materials.add(selected_material)
+
+            # TODO: Display results for this calculation
+            print("\n" + "="*20 + " RESULTS " + "="*20)
+            print(f"Material Profile     : {selected_material}")
+            print(f"Applied Force        : {force:,.2f} N")
+            print(f"Cross-sectional Area : {area:.6f} m^2")
+            print(f"Original Length      : {original_length:,.4f} m")
+            print(f"Change in Length     : {change_in_length:,.6f} m")
+            print("-" * 49)
+            print(f"Calculated Stress    : {stress:,.2f} Pa ({stress_mpa:.4f} MPa)")
+            print(f"Calculated Strain    : {strain:.6f}")
+            print(f"Loading Classification: {loading_type}")
+            print("-" * 49)
+            print(f"ANALYSIS REPORT      : {safety_status}")
+            print("="*49)
+
+        except ValueError:
+            print("Error: Invalid input. Please enter numeric values.")
+        except ZeroDivisionError:
+            print("Error: Area and original length cannot be zero!")
+        except KeyError:
+            print("Error: Material not found in database!")
