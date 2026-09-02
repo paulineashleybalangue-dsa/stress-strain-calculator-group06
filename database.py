@@ -57,3 +57,21 @@ def main():
 
             if exit_to_menu:
                 continue
+            
+            while True:
+                try:
+                    ym_raw = input("Enter Custom Young's Modulus (GPa): ").strip()
+                    if ym_raw.lower() in ["q", "quit"]:
+                        exit_to_menu = True
+                        break
+                    ym_input = float(ym_raw)
+                    if ym_input <= 0:
+                        print("Young's Modulus must be positive!")
+                        continue
+                    youngs_modulus = ym_input * 1_000_000_000  # Convert GPa to Pa
+                    break
+                except ValueError:
+                    print("Please enter a valid number for Young's Modulus!")
+
+            if exit_to_menu:
+                continue
