@@ -9,3 +9,6 @@ def main():
 
      # TODO: Initialize empty list for calculation history
     calculation_history = []
+
+    # TODO: Initialize empty set for unique materials
+    unique_materials = set()
