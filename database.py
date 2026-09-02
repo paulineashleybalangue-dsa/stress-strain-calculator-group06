@@ -105,4 +105,21 @@ def main():
             print("\n[Calculation Canceled] Returning to main menu.")
             continue
 
-  
+  #Validating Area
+        while True:
+            raw_val = input("Enter cross-sectional area (m^2): ").strip()
+            if raw_val.lower() in ['q', 'quit']:
+                abort_calculation = True
+                break
+            try:
+                area = float(raw_val)
+                if area <= 0:
+                    print("Cross-sectional area must be greater than zero (prevents division error)!")
+                    continue
+                break
+            except ValueError:
+                print("Please enter a valid numeric value for Area!")
+
+        if abort_calculation:
+            print("\n[Calculation Canceled] Returning to main menu.")
+            continue
