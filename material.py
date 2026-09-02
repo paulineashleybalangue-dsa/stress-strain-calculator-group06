@@ -125,3 +125,14 @@ def main():
                 loading_type = "Compression"
             else:
                 loading_type = "No deformation"
+
+            # TODO: Calculate safety factor
+            factor_of_safety = yield_strength / stress if stress > 0 else float("inf")
+
+            if stress < yield_strength:
+                if factor_of_safety < 1.2:
+                    safety_status = f"CAUTION - Factor of safety: {factor_of_safety:.2f}"
+                else:
+                    safety_status = f"SAFE - Factor of safety: {factor_of_safety:.2f}"
+            else:
+                safety_status = f"CRITICAL FAILURE RISK - Stress exceeds Yield Strength! (FOS: {factor_of_safety:.2f})"
