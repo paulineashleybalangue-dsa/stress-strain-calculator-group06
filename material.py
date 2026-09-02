@@ -156,3 +156,6 @@ def main():
 
             # TODO: Add record to history list
             calculation_history.append(calculation_record)
+
+            # TODO: Add material to unique materials set
+            unique_materials.add(selected_material)
