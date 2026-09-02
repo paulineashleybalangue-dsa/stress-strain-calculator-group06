@@ -200,3 +200,6 @@ def main():
         print(f"ANALYSIS REPORT      : {safety_status}")
         print("="*49)
 
+#Calling the main function
+if __name__ == "__main__":
+    main()
