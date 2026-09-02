@@ -97,4 +97,19 @@ def main():
             original_length = float( input(f"Enter original length ({units[2]}): ") ) 
             change_in_length = float( input(f"Enter change in length ({units[2]}): ") )
 
-            
+             # TODO: Validate inputs (positive values, non-zero where needed)
+            if force < 0: 
+                print("Force cannot be negative!") 
+                continue 
+
+            if area <= 0: 
+                print( "Cross-sectional area must be greater than zero " "(prevents division error)!" ) 
+                continue 
+
+            if original_length <= 0: 
+                print( "Original length must be greater than zero!" ) 
+                continue 
+
+            if change_in_length < 0: 
+                print("Change in length cannot be negative!") 
+                continue
