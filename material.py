@@ -113,3 +113,15 @@ def main():
             if change_in_length < 0: 
                 print("Change in length cannot be negative!") 
                 continue
+
+            # TODO: Calculate stress and strain
+            stress = force / area
+            strain = change_in_length / original_length
+            stress_mpa = stress / 1_000_000
+
+            if change_in_length > 0:
+                loading_type = "Tension"
+            elif change_in_length < 0:
+                loading_type = "Compression"
+            else:
+                loading_type = "No deformation"
