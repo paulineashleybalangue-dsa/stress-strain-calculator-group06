@@ -32,3 +32,18 @@ def main():
             "name": "Titanium", 
             "yield_strength": 880_000_000, 
             "youngs_modulus": 114_000_000_000}}
+
+    # Main calculation loop
+    while True:
+
+        # TODO: Display available materials
+        print("\n=== Intelligent Stress and Strain Calculator ===")
+        print("1. Steel")
+        print("2. Aluminum")
+        print("3. Titanium")
+        print("4. Custom Material")
+        print("5. Exit Program")
+        print("Type 'q' or 'quit' at any prompt to exit back to menu")
+
+        # TODO: Get material selection from user
+        choice = input("Select a material option (1-5): ").strip()
