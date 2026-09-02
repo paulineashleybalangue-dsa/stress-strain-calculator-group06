@@ -181,3 +181,28 @@ def main():
             print("Error: Area and original length cannot be zero!")
         except KeyError:
             print("Error: Material not found in database!")
+
+    # TODO: Display session summary
+    # - Total number of calculations
+    # - List of unique materials tested
+    # - Detailed history of each calculation
+    
+    print("\n=== SESSION SUMMARY ===")
+    print(f"Total number of calculations: {len(calculation_history)}")
+
+    print("\nUnique materials tested:")
+    for material in unique_materials:
+        print(f"- {material}")
+
+    print("\n=== Calculation History ===")
+    for record in calculation_history:
+        print(f"\nCalculation #{record['test_number']}:")
+        print(f"Material: {record['material']}")
+        print(f"Stress: {record['stress']:.2f} Pa")
+        print(f"Strain: {record['strain']:.6f}")
+        print(f"Factor of Safety: {record['factor_of_safety']:.2f}")
+        print(f"Safety Status: {record['safety_status']}")
+
+# Standard Python execution pattern
+if __name__ == "__main__":
+    main()
