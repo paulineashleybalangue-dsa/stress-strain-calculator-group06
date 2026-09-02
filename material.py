@@ -12,3 +12,6 @@ def main():
 
     # TODO: Initialize empty set for unique materials
     unique_materials = set()
+
+    # TODO: Create tuple for measurement units (N, m², m, Pa)
+    units = ("N", "m²", "m", "Pa")
