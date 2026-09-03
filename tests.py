@@ -84,3 +84,22 @@ def add_to_history(history_list: list, record: dict) -> None:
     """
     history_list.append(record)
 
+def get_materials_database() -> dict:
+    """
+    returns the materials properties dictionary ♡
+
+    returns:
+        a dictionary containing the available materials
+        and their properties.
+    """
+    return {
+        "steel": {
+            "yield_strength": 250_000_000
+        },
+        "aluminum": {
+            "yield_strength": 95_000_000
+        },
+        "concrete": {
+            "yield_strength": 880_000_000
+        }
+    }
