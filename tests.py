@@ -166,3 +166,26 @@ def display_calculation_results(record: dict) -> None:
     print(f"Strain: {results['strain']:.6f}")
     print(f"Young's Modulus: {results['youngs_modulus']:.2f} Pa")
     print(f"Factor of Safety: {results['factor_of_safety']:.2f}")
+
+def display_safety_analysis(stress: float, yield_strength: float, safety_factor: float) -> None:
+    """
+    displays the safety analysis ♡
+
+    arguments:
+        stress: the calculated stress.
+        yield_strength: the material's yield strength.
+        safety_factor: the calculated factor of safety.
+
+    returns:
+        None.
+    """
+    print("\n== Safety Analysis ==")
+    print("----------------")
+    print(f"Stress: {stress:.2f} pa")
+    print(f"Yield Strength: {yield_strength:.2f} pa")
+    print(f"Factor of Safety: {safety_factor:.2f}")
+
+    if safety_factor >= 1:
+        print("the material is within the safe range ✓")
+    else:
+        print("warning: the material may not be safe :(")
