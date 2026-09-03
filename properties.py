@@ -37,3 +37,8 @@ class StressStrainTest:
     def stress(self) -> float:
         """Calculate stress in Pascals (Pa). Formula: F / A"""
         return self._force / self._area
+    
+    @property
+    def stress_mpa(self) -> float:
+        """Convert Pa to MPa for material failure checks."""
+        return self.stress / 1_000_000
