@@ -33,3 +33,21 @@ def calculate_strain(original_length, change_in_length):
     if original_length <= 0:
         raise ValueError("Original length must be greater than zero.")
     return change_in_length / original_length
+
+def calculate_youngs_modulus(stress, strain):
+    """
+    calculates Young's modulus from stress and strain.
+
+    arguments:
+        stress: the calculated stress in pascals.
+        strain: the calculated strain.
+
+    returns:
+        the calculated Young's modulus in pascals.
+
+    raises:
+        ValueError: if the strain is zero.
+    """
+    if strain == 0:
+        raise ValueError("Strain cannot be zero.")
+    return stress / strain
