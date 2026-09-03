@@ -6,3 +6,7 @@ class MaterialProperties:
     density: float  # kg/m
     yield_strength: float  # MPa
     typical_youngs_modulus: float # GPa
+
+    def __post_init__(self):
+        if self.density <= 0 or self.yield_strength <= 0 or self.typical_youngs_modulus <= 0:
+            raise ValueError("All material properties must be positive values.")
