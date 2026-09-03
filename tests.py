@@ -70,3 +70,17 @@ def create_calculation_record(material: str, inputs: dict, results: dict) -> dic
         "inputs": inputs,
         "results": results
     }
+
+def add_to_history(history_list: list, record: dict) -> None:
+    """
+    adds a calculation record to the history ♡
+
+    arguments:
+        history_list: the list containing calculation records.
+        record: the calculation record to add.
+
+    returns:
+        None.
+    """
+    history_list.append(record)
+
