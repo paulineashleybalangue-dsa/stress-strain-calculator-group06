@@ -124,3 +124,18 @@ def get_material_properties(material_name: str, database: dict) -> dict:
         raise ValueError("material not found :(")
 
     return database[material_name]
+
+def display_material_menu(database: dict) -> None:
+    """
+    displays the available materials (｡•̀ᴗ-)✧
+
+    arguments:
+        database: the materials properties dictionary.
+
+    returns:
+        None.
+    """
+    print("\navailable materials:")
+
+    for material in database:
+        print(f"- {material.title()}")
