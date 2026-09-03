@@ -51,3 +51,23 @@ def calculate_youngs_modulus(stress, strain):
     if strain == 0:
         raise ValueError("Strain cannot be zero.")
     return stress / strain
+
+def calculate_factor_of_safety(yield_strength, stress):
+    """
+    calculates the factor of safety from yield strength and stress.
+
+    arguments:
+        yield_strength: the material's yield strength in pascals.
+        stress: the calculated stress in pascals.
+
+    returns:
+        the calculated factor of safety.
+
+    raises:
+        ValueError: if the yield strength or stress is zero or negative.
+    """
+    if yield_strength <= 0:
+        raise ValueError("Yield strength must be greater than zero.")
+    if stress <= 0:
+        raise ValueError("Stress must be greater than zero.")
+    return yield_strength / stress
