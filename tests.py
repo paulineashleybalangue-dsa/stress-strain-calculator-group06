@@ -189,3 +189,23 @@ def display_safety_analysis(stress: float, yield_strength: float, safety_factor:
         print("the material is within the safe range ✓")
     else:
         print("warning: the material may not be safe :(")
+
+def display_session_summary(history: list, unique_materials: list) -> None:
+    """
+    displays a summary of the current session (˶ᵔ ᵕ ᵔ˶)
+
+    arguments:
+        history: the list of calculation records.
+        unique_materials: the materials used during the session.
+
+    returns:
+        None.
+    """
+    print("\n== Session Summary ==")
+    print("----------------")
+    print(f"Total Calculations: {len(history)}")
+
+    if unique_materials:
+        print(f"Materials Used: {', '.join(unique_materials)}")
+    else:
+        print("Materials Used: none")
