@@ -52,3 +52,21 @@ def get_validated_input(prompt: str, validator_func, name: str) -> float:
             return validator_func(value, name)
         except ValueError as error:
             print(f"Invalid input: {error} :(")
+
+def create_calculation_record(material: str, inputs: dict, results: dict) -> dict:
+    """
+    creates a dictionary for one calculation ♡
+
+    arguments:
+        material: the material used in the calculation.
+        inputs: the input values used for the calculation.
+        results: the calculated results.
+
+    returns:
+        a dictionary containing the material, inputs, and results.
+    """
+    return {
+        "material": material,
+        "inputs": inputs,
+        "results": results
+    }
