@@ -103,3 +103,24 @@ def get_materials_database() -> dict:
             "yield_strength": 880_000_000
         }
     }
+
+def get_material_properties(material_name: str, database: dict) -> dict:
+    """
+    gets the properties of a selected material ♡
+
+    arguments:
+        material_name: the name of the material.
+        database: the materials properties dictionary.
+
+    returns:
+        a dictionary containing the material properties.
+
+    raises:
+        ValueError: if the material is not found.
+    """
+    material_name = material_name.lower()
+
+    if material_name not in database:
+        raise ValueError("material not found :(")
+
+    return database[material_name]
