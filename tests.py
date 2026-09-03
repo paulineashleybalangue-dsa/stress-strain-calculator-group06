@@ -186,9 +186,9 @@ def display_safety_analysis(stress: float, yield_strength: float, safety_factor:
     print(f"Factor of Safety: {safety_factor:.2f}")
 
     if safety_factor >= 1:
-        print("the material is within the safe range ✓")
+        print("The material is within the safe range ✓")
     else:
-        print("warning: the material may not be safe :(")
+        print("Warning: the material may not be safe :(")
 
 def display_session_summary(history: list, unique_materials: list) -> None:
     """
