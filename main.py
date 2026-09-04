@@ -112,4 +112,46 @@ def main():
                 print("\n[Canceled] Menu reset.")
                 continue
 
+        # Manual Input Collection
+        print(f"\n--- Interactive Test: {selected_material.name} ---")
+        try:
+            force = get_validated_input(
+                "Applied Force (N): ", validate_positive_number, "Force"
+            )
+            area = get_validated_input(
+                "Cross-sectional Area (m^2): ", validate_positive_number, "Area"
+            )
+            orig_len = get_validated_input(
+                "Original Length (m): ", validate_positive_number, "Original Length"
+            )
+            change_len = get_validated_input(
+                "Change in Length (m): ", validate_positive_number, "Change in Length"
+            )
+        except KeyboardInterrupt:
+            print("\n[Canceled] Menu reset.")
+            continue
+
+        # Process and Save
+        test_run = StressStrainTest(
+            material=selected_material,
+            force=force,
+            area=area,
+            original_length=orig_len,
+            change_in_length=change_len,
+        )
+        history_manager.add_test(test_run)
+
+        # Output Results
+        print("\n" + "=" * 20 + " TEST REPORT " + "=" * 20)
+        print(f"Material         : {test_run.material.name}")
+        print(f"Calculated Stress: {test_run.stress:,.2f} Pa ({test_run.stress_mpa:.4f} MPa)")
+        print(f"Calculated Strain: {test_run.strain:.6f}")
+        print(f"Safety Factor    : {test_run.factor_of_safety:.2f}")
+        print(f"Material Status  : {'FAIL' if test_run.will_fail() else 'PASS'}")
+        print("=" * 53)
+
+
+if __name__ == "__main__":
+    main()
+
 
