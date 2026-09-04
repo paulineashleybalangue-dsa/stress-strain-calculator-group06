@@ -55,3 +55,10 @@ class StressStrainTest:
             "factor_of_safety": self.factor_of_safety,
             "failed": self.will_fail(),
         }
+
+class TestHistoryManager:
+
+    def __init__(self, output_dir: str = "output"):
+        self.history = []
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
