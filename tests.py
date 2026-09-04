@@ -39,3 +39,19 @@ class StressStrainTest:
 
     def will_fail(self) -> bool:
         return not self.material.can_withstand_stress(self.stress)
+
+    def to_dict(self) -> dict:
+        """Converts test instance into a dictionary for serialization."""
+        return {
+            "timestamp": self.timestamp,
+            "material": self.material.name,
+            "force_N": self.force,
+            "area_m2": self.area,
+            "original_length_m": self.original_length,
+            "change_in_length_m": self.change_in_length,
+            "stress_Pa": self.stress,
+            "stress_MPa": self.stress_mpa,
+            "strain": self.strain,
+            "factor_of_safety": self.factor_of_safety,
+            "failed": self.will_fail(),
+        }
