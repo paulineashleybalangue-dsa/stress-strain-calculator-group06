@@ -1,6 +1,4 @@
-### stress-strain-calculator-group06
-
-# stress-strain-calculator-
+# Stress Strain Calculator
 Stress and Strain Analysis System
 
 ## Group Members:
