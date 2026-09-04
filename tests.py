@@ -62,3 +62,6 @@ class TestHistoryManager:
         self.history = []
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
+
+    def add_test(self, test: StressStrainTest) -> None:
+        self.history.append(test)
