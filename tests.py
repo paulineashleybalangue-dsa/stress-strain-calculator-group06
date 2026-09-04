@@ -32,3 +32,7 @@ class StressStrainTest:
         self.factor_of_safety = calculate_factor_of_safety(
             material.properties.yield_strength, self.stress
         )
+
+    @property
+    def stress_mpa(self) -> float:
+        return self.stress / 1_000_000
