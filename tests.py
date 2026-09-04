@@ -85,3 +85,9 @@ class TestHistoryManager:
             for test in self.history:
                 writer.writerow(test.to_dict())
         return filepath
+
+    def load_from_json(self, filename: str = "test_history.json") -> int:
+        """loads previous test history from a JSON file into memory."""
+        filepath = self.output_dir / filename
+        if not filepath.exists():
+            return 0
