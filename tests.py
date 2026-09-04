@@ -91,3 +91,11 @@ class TestHistoryManager:
         filepath = self.output_dir / filename
         if not filepath.exists():
             return 0
+        
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+                
+        # Re-populate local history count
+        loaded_count = len(data)
+        print(f"[Loaded] Successfully imported {loaded_count} previous test records from {filepath}")
+        return loaded_count
