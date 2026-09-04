@@ -48,3 +48,40 @@ def run_automated_verification_tests(history_manager: TestHistoryManager):
     print("=" * 62)
 
 
+def main():
+    history_manager = TestHistoryManager()
+
+    while True:
+        print("\n=== Stress & Strain Calculator ===")
+        print("1. Steel Test")
+        print("2. Aluminum Test")
+        print("3. Titanium Test")
+        print("4. Custom Material Test")
+        print("5. Load Test History from JSON")
+        print("6. Run Automated Verification Suite (Test 1 & 2)")
+        print("7. Export History & Exit")
+
+        choice = input("\nSelect an option (1-7): ").strip()
+
+        if choice == "7" or choice.lower() in ["q", "quit"]:
+            if history_manager.history:
+                json_path = history_manager.export_to_json()
+                csv_path = history_manager.export_to_csv()
+                print(f"\n[Saved] Exported {len(history_manager.history)} records to:")
+                print(f" - JSON: {json_path}")
+                print(f" - CSV:  {csv_path}")
+            print("Exiting application. Goodbye!")
+            break
+
+        elif choice == "5":
+            history_manager.load_from_json()
+            continue
+
+        elif choice == "6":
+            run_automated_verification_tests(history_manager)
+            continue
+
+        elif choice not in ["1", "2", "3", "4"]:
+            print("[Invalid Choice] Please enter a number between 1 and 7.")
+            continue
+
