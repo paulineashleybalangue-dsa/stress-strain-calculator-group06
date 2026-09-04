@@ -65,3 +65,10 @@ class TestHistoryManager:
 
     def add_test(self, test: StressStrainTest) -> None:
         self.history.append(test)
+
+    def export_to_json(self, filename: str = "test_history.json") -> Path:
+        filepath = self.output_dir / filename
+        data = [test.to_dict() for test in self.history]
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
+        return filepath
