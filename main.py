@@ -85,3 +85,31 @@ def main():
             print("[Invalid Choice] Please enter a number between 1 and 7.")
             continue
 
+        # Material Setup
+        if choice in PREDEFINED_MATERIALS:
+            selected_material = PREDEFINED_MATERIALS[choice]
+        else:
+            print("\n--- Custom Material Setup ---")
+            mat_name = input("Material Name: ").strip() or "Custom Material"
+            try:
+                ys = get_validated_input(
+                    "Yield Strength (MPa): ",
+                    validate_positive_number,
+                    "Yield Strength",
+                )
+                ym = get_validated_input(
+                    "Young's Modulus (GPa): ",
+                    validate_positive_number,
+                    "Young's Modulus",
+                )
+                props = MaterialProperties(
+                    density=7800,
+                    yield_strength=ys * 1_000_000,
+                    typical_youngs_modulus=ym * 1_000_000_000,
+                )
+                selected_material = Material(mat_name, props)
+            except KeyboardInterrupt:
+                print("\n[Canceled] Menu reset.")
+                continue
+
+
