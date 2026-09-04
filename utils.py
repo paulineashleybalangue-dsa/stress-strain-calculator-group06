@@ -17,3 +17,12 @@ def calculate_factor_of_safety(yield_strength: float, stress: float) -> float:
     if stress <= 0:
         return float("inf")
     return yield_strength / stress
+
+# --- VALIDATION HELPERS ---
+
+def validate_positive_number(value: float, name: str) -> float:
+    """Ensures a number is strictly greater than zero."""
+    if value <= 0:
+        raise ValueError(f"{name} must be greater than zero.")
+    return value
+
