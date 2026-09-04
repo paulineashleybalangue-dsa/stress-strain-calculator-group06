@@ -77,3 +77,11 @@ class TestHistoryManager:
         filepath = self.output_dir / filename
         if not self.history:
             return filepath
+
+        fieldnames = list(self.history[0].to_dict().keys())
+        with open(filepath, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            for test in self.history:
+                writer.writerow(test.to_dict())
+        return filepath
