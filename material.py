@@ -1,3 +1,5 @@
+from properties import MaterialProperties
+
 class Material:
 
     def __init__(self, name: str, properties: MaterialProperties):
