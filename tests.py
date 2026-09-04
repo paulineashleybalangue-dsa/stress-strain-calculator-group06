@@ -25,3 +25,10 @@ class StressStrainTest:
         self.original_length = original_length
         self.change_in_length = change_in_length
         self.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+# automatically run calculations using utility functions
+        self.stress = calculate_stress(force, area)
+        self.strain = calculate_strain(original_length, change_in_length)
+        self.factor_of_safety = calculate_factor_of_safety(
+            material.properties.yield_strength, self.stress
+        )
