@@ -145,7 +145,7 @@ def main():
         print("\n" + "=" * 20 + " TEST REPORT " + "=" * 20)
         print(f"Material         : {test_run.material.name}")
         print(f"Calculated Stress: {test_run.stress:,.2f} Pa ({test_run.stress_mpa:.4f} MPa)")
-        print(f"Calculated Strain: {test_run.strain:.6f}")
+        print(f"Calculated Strain: {test_run.strain:.4f}")
         print(f"Safety Factor    : {test_run.factor_of_safety:.2f}")
         print(f"Material Status  : {'FAIL' if test_run.will_fail() else 'PASS'}")
         print("=" * 53)
