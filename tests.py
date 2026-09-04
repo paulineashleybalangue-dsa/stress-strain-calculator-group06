@@ -1,211 +1,101 @@
-def validate_positive_number(value: float, name: str) -> float:
-    """
-    checks if a number is greater than zero ♡
+import csv
+import json
+from datetime import datetime
+from pathlib import Path
+from material import Material
+from utils import (
+    calculate_factor_of_safety,
+    calculate_strain,
+    calculate_stress,
+)
 
-    arguments:
-        value: the number being checked.
-        name: the name of the input being checked.
+class StressStrainTest:
 
-    returns:
-        the validated number.
+    def __init__(
+        self,
+        material: Material,
+        force: float,
+        area: float,
+        original_length: float,
+        change_in_length: float,
+    ):
+        self.material = material
+        self.force = force
+        self.area = area
+        self.original_length = original_length
+        self.change_in_length = change_in_length
+        self.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    raises:
-        ValueError: if the number is zero or negative.
-    """
-    if value <= 0:
-        raise ValueError(f"{name} must be greater than zero.")
-    return value
+# automatically run calculations using utility functions
+        self.stress = calculate_stress(force, area)
+        self.strain = calculate_strain(original_length, change_in_length)
+        self.factor_of_safety = calculate_factor_of_safety(
+            material.properties.yield_strength, self.stress
+        )
 
-def validate_non_zero(value: float, name: str) -> float:
-    """
-    checks if a number is not zero ♡
+    @property
+    def stress_mpa(self) -> float:
+        return self.stress / 1_000_000
 
-    arguments:
-        value: the number being checked.
-        name: the name of the input being checked.
+    def will_fail(self) -> bool:
+        return not self.material.can_withstand_stress(self.stress)
 
-    returns:
-        the validated number.
-
-    raises:
-        ValueError: if the number is zero.
-    """
-    if value == 0:
-        raise ValueError(f"{name} cannot be zero.")
-    return value
-
-def get_validated_input(prompt: str, validator_func, name: str) -> float:
-    """
-    gets a valid number from the user (｡•ᴗ•｡)
-
-    arguments:
-        prompt: the message shown to the user.
-        validator_func: the function used to validate the input.
-        name: the name of the input being checked.
-
-    returns:
-        a validated number.
-    """
-    while True:
-        try:
-            value = float(input(prompt))
-            return validator_func(value, name)
-        except ValueError as error:
-            print(f"Invalid input: {error} :(")
-
-def create_calculation_record(material: str, inputs: dict, results: dict) -> dict:
-    """
-    creates a dictionary for one calculation ♡
-
-    arguments:
-        material: the material used in the calculation.
-        inputs: the input values used for the calculation.
-        results: the calculated results.
-
-    returns:
-        a dictionary containing the material, inputs, and results.
-    """
-    return {
-        "material": material,
-        "inputs": inputs,
-        "results": results
-    }
-
-def add_to_history(history_list: list, record: dict) -> None:
-    """
-    adds a calculation record to the history ♡
-
-    arguments:
-        history_list: the list containing calculation records.
-        record: the calculation record to add.
-
-    returns:
-        None.
-    """
-    history_list.append(record)
-
-def get_materials_database() -> dict:
-    """
-    returns the materials properties dictionary ♡
-
-    returns:
-        a dictionary containing the available materials
-        and their properties.
-    """
-    return {
-        "steel": {
-            "yield_strength": 250_000_000
-        },
-        "aluminum": {
-            "yield_strength": 95_000_000
-        },
-        "concrete": {
-            "yield_strength": 880_000_000
+    def to_dict(self) -> dict:
+        """Converts test instance into a dictionary for serialization."""
+        return {
+            "timestamp": self.timestamp,
+            "material": self.material.name,
+            "force_N": self.force,
+            "area_m2": self.area,
+            "original_length_m": self.original_length,
+            "change_in_length_m": self.change_in_length,
+            "stress_Pa": self.stress,
+            "stress_MPa": self.stress_mpa,
+            "strain": self.strain,
+            "factor_of_safety": self.factor_of_safety,
+            "failed": self.will_fail(),
         }
-    }
 
-def get_material_properties(material_name: str, database: dict) -> dict:
-    """
-    gets the properties of a selected material ♡
+class TestHistoryManager:
 
-    arguments:
-        material_name: the name of the material.
-        database: the materials properties dictionary.
+    def __init__(self, output_dir: str = "output"):
+        self.history = []
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    returns:
-        a dictionary containing the material properties.
+    def add_test(self, test: StressStrainTest) -> None:
+        self.history.append(test)
 
-    raises:
-        ValueError: if the material is not found.
-    """
-    material_name = material_name.lower()
+    def export_to_json(self, filename: str = "test_history.json") -> Path:
+        filepath = self.output_dir / filename
+        data = [test.to_dict() for test in self.history]
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
+        return filepath
 
-    if material_name not in database:
-        raise ValueError("material not found :(")
+    def export_to_csv(self, filename: str = "test_history.csv") -> Path:
+        filepath = self.output_dir / filename
+        if not self.history:
+            return filepath
 
-    return database[material_name]
+        fieldnames = list(self.history[0].to_dict().keys())
+        with open(filepath, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            for test in self.history:
+                writer.writerow(test.to_dict())
+        return filepath
 
-def display_material_menu(database: dict) -> None:
-    """
-    displays the available materials (｡•̀ᴗ-)✧
-
-    arguments:
-        database: the materials properties dictionary.
-
-    returns:
-        None.
-    """
-    print("\navailable materials:")
-
-    for material in database:
-        print(f"- {material.title()}")
-
-def display_calculation_results(record: dict) -> None:
-    """
-    displays the results of a calculation ♡
-
-    arguments:
-        record: the calculation record containing the material,
-            inputs, and results.
-
-    returns:
-        None.
-    """
-    material = record["material"]
-    inputs = record["inputs"]
-    results = record["results"]
-
-    print("\n== Calculation Results ==")
-    print("-------------------")
-    print(f"Material: {material.title()}")
-    print(f"Force: {inputs['force']:.2f} N")
-    print(f"Area: {inputs['area']:.4f} m^2")
-    print(f"Original Length: {inputs['original_length']:.4f} m")
-    print(f"Change in Length: {inputs['change_in_length']:.4f} m")
-    print(f"Stress: {results['stress']:.2f} Pa")
-    print(f"Strain: {results['strain']:.6f}")
-    print(f"Young's Modulus: {results['youngs_modulus']:.2f} Pa")
-    print(f"Factor of Safety: {results['factor_of_safety']:.2f}")
-
-def display_safety_analysis(stress: float, yield_strength: float, safety_factor: float) -> None:
-    """
-    displays the safety analysis ♡
-
-    arguments:
-        stress: the calculated stress.
-        yield_strength: the material's yield strength.
-        safety_factor: the calculated factor of safety.
-
-    returns:
-        None.
-    """
-    print("\n== Safety Analysis ==")
-    print("----------------")
-    print(f"Stress: {stress:.2f} pa")
-    print(f"Yield Strength: {yield_strength:.2f} pa")
-    print(f"Factor of Safety: {safety_factor:.2f}")
-
-    if safety_factor >= 1:
-        print("The material is within the safe range ✓")
-    else:
-        print("Warning: the material may not be safe :(")
-
-def display_session_summary(history: list, unique_materials: list) -> None:
-    """
-    displays a summary of the current session (˶ᵔ ᵕ ᵔ˶)
-
-    arguments:
-        history: the list of calculation records.
-        unique_materials: the materials used during the session.
-
-    returns:
-        None.
-    """
-    print("\n== Session Summary ==")
-    print("----------------")
-    print(f"Total Calculations: {len(history)}")
-
-    if unique_materials:
-        print(f"Materials Used: {', '.join(unique_materials)}")
-    else:
-        print("Materials Used: none")
+    def load_from_json(self, filename: str = "test_history.json") -> int:
+        """loads previous test history from a JSON file into memory."""
+        filepath = self.output_dir / filename
+        if not filepath.exists():
+            return 0
+        
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+                
+        # Re-populate local history count
+        loaded_count = len(data)
+        print(f"[Loaded] Successfully imported {loaded_count} previous test records from {filepath}")
+        return loaded_count
