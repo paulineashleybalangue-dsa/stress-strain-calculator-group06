@@ -72,3 +72,8 @@ class TestHistoryManager:
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4)
         return filepath
+
+    def export_to_csv(self, filename: str = "test_history.csv") -> Path:
+        filepath = self.output_dir / filename
+        if not self.history:
+            return filepath
