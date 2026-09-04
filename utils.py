@@ -26,3 +26,14 @@ def validate_positive_number(value: float, name: str) -> float:
         raise ValueError(f"{name} must be greater than zero.")
     return value
 
+def get_validated_input(prompt: str, validator_func, name: str) -> float:
+    """Helper to safely prompt user until a valid number is provided."""
+    while True:
+        try:
+            val_str = input(prompt).strip()
+            if val_str.lower() in ["q", "quit"]:
+                raise KeyboardInterrupt("User cancelled input.")
+            value = float(val_str)
+            return validator_func(value, name)
+        except ValueError as error:
+            print(f"Invalid input: {error}")
