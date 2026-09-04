@@ -36,3 +36,6 @@ class StressStrainTest:
     @property
     def stress_mpa(self) -> float:
         return self.stress / 1_000_000
+
+    def will_fail(self) -> bool:
+        return not self.material.can_withstand_stress(self.stress)
